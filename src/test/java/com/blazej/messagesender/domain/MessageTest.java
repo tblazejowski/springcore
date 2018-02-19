@@ -8,7 +8,11 @@ public class MessageTest {
     @Test
     public void shouldCreateNewMessageWithRequiredArgs () {
 
-        Message message = new Message("hot topic", "nice body", "from someone", "to someone");
+        Message message = new Message.MessageBuilder()
+                .withSubject("hot topic")
+                .withBody("nice body")
+                .withSender("from someone")
+                .withRecipient("to someone").build();
 
         Assert.assertEquals(message.getSubject(), "hot topic");
         Assert.assertEquals(message.getBody(), "nice body");
