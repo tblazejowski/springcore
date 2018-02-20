@@ -2,11 +2,28 @@ package com.blazej.messagesender.domain;
 
 public class Message {
 
-    private final String subject;
-    private final String body;
-    private final String sender;
-    private final String recipient;
+    private String subject;
+    private String body;
+    private String sender;
+    private String recipient;
     private String id;
+
+    public Message(String subject, String body) {
+        this.subject = subject;
+        this.body = body;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     Message(MessageBuilder messageBuilder) {
 
@@ -49,10 +66,6 @@ public class Message {
 
     public boolean hasSameId(String id){
         return this.id == id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public static class MessageBuilder {

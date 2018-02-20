@@ -8,7 +8,15 @@ import java.util.List;
 
 public class InMemoryMessageRepository implements MessageRepository {
 
-    private final List<Message> messages = new ArrayList<>();
+    private final List<Message> messages;
+
+    public InMemoryMessageRepository(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public InMemoryMessageRepository() {
+        this(new ArrayList<>());
+    }
 
     public boolean exists(String id) {
         return messages.stream().anyMatch(message -> message.hasSameId(id));
