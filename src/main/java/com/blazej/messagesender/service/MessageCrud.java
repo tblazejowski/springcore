@@ -11,9 +11,22 @@ public class MessageCrud {
         this.messageRepository = messageRepository;
     }
 
-    public String createNew(String subject, String body, String sender, String recipient){
+    public Response createNew(String subject, String body, String sender, String recipient) {
 
-        messageRepository.add();
-        return "1";
+        Message message = new Message.MessageBuilder()
+                .withSubject(subject)
+                .withBody(body)
+                .withSender(sender)
+                .withRecipient(recipient)
+                .build();
+
+        if (!messageRepository.exists(message)){
+            message.setId("1");
+            messageRepository.add(message);
+
+            return Response.aSuccessfulResponseWith("1");
+        }
+
+        return Response.aFailureResponse("Message already exists");
     }
 }

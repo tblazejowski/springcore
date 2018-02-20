@@ -28,9 +28,30 @@ public class MessageCrudTest {
         String sender = "from someone";
         String recipient = "to someone";
 
-        String id = messageCrud.createNew(subject, body, sender, recipient);
+        Response response = messageCrud.createNew(subject, body, sender, recipient);
 
-        Assert.assertThat(id, any(String.class));
-        Assert.assertTrue(messageRepository.exists(id));
+        Assert.assertTrue(response.isSuccess());
+        Assert.assertThat(response.getMessage(), any(String.class));
+        Assert.assertTrue(messageRepository.exists(response.getMessage()));
+    }
+
+    @Test
+    public void shouldNotCreateNewMessage() {
+
+        String subject = "hot topic";
+        String body = "nice body";
+        String sender = "from someone";
+        String recipient = "to someone";
+
+        messageRepository.add(new Message.MessageBuilder()
+                        .withSubject(subject)
+                        .withBody(body)
+                        .withSender(sender)
+                        .withRecipient(recipient)
+                        .build());
+
+        Response response = messageCrud.createNew(subject, body, sender, recipient);
+
+        Assert.assertFalse(response.isSuccess());
     }
 }
