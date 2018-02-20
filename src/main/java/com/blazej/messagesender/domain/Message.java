@@ -2,11 +2,12 @@ package com.blazej.messagesender.domain;
 
 public class Message {
 
-    private String subject;
-    private String body;
-    private String sender;
-    private String recipient;
-    private String id;
+    public static final String NO_VALUE = "";
+    private String subject = NO_VALUE;
+    private String body = NO_VALUE;
+    private String sender = NO_VALUE;
+    private String recipient = NO_VALUE;
+    private String id = NO_VALUE;
 
     public Message(String subject, String body) {
         this.subject = subject;
@@ -32,7 +33,7 @@ public class Message {
         this.sender = messageBuilder.sender;
         this.recipient = messageBuilder.recipient;
         this.id = messageBuilder.id;
-        
+
     }
 
     @Override
@@ -45,7 +46,8 @@ public class Message {
         if (!subject.equals(message.subject)) return false;
         if (!body.equals(message.body)) return false;
         if (!sender.equals(message.sender)) return false;
-        return recipient.equals(message.recipient);
+        if (!recipient.equals(message.recipient)) return false;
+        return id.equals(message.id);
     }
 
     public String getSubject() {
@@ -64,17 +66,19 @@ public class Message {
         return recipient;
     }
 
-    public boolean hasSameId(String id){
+    public boolean hasSameId(String id) {
         return this.id == id;
     }
 
     public static class MessageBuilder {
 
+        private static final String NO_ID = NO_VALUE;
+
         private String subject;
         private String body;
         private String sender;
         private String recipient;
-        public String id;
+        public String id = NO_ID;
 
         public MessageBuilder withSubject(String subject) {
             this.subject = subject;
@@ -101,7 +105,7 @@ public class Message {
             return this;
         }
 
-        public Message build(){
+        public Message build() {
             return new Message(this);
         }
     }
