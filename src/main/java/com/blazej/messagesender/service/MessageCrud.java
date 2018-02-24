@@ -1,6 +1,7 @@
 package com.blazej.messagesender.service;
 
 import com.blazej.messagesender.domain.Message;
+import com.blazej.messagesender.domain.MessageFactory;
 import com.blazej.messagesender.domain.MessageRepository;
 
 public class MessageCrud {
@@ -13,12 +14,7 @@ public class MessageCrud {
 
     public Response createNew(MessageDto messageDto) {
 
-        Message message = new Message.MessageBuilder()
-                .withSubject(messageDto.getSubject())
-                .withBody(messageDto.getBody())
-                .withSender(messageDto.getSender())
-                .withRecipient(messageDto.getRecipient())
-                .build();
+        Message message = new MessageFactory().createFrom(messageDto );
 
         if (!messageRepository.exists(message)){
             message.setId("1");

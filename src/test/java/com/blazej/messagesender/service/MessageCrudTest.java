@@ -1,6 +1,7 @@
 package com.blazej.messagesender.service;
 
 import com.blazej.messagesender.domain.Message;
+import com.blazej.messagesender.domain.MessageFactory;
 import com.blazej.messagesender.domain.MessageRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,19 +50,13 @@ public class MessageCrudTest {
         String sender = "from someone";
         String recipient = "to someone";
 
-        messageRepository.add(new Message.MessageBuilder()
-                        .withSubject(subject)
-                        .withBody(body)
-                        .withSender(sender)
-                        .withRecipient(recipient)
-                        .build());
-
-
         MessageDto messageDto = new MessageDto();
         messageDto.setSubject(subject);
         messageDto.setBody(body);
         messageDto.setSender(sender);
         messageDto.setRecipient(recipient);
+
+        messageRepository.add(new MessageFactory().createFrom(messageDto));
 
         Response response = messageCrud.createNew(messageDto);
 
