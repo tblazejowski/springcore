@@ -28,7 +28,13 @@ public class MessageCrudTest {
         String sender = "from someone";
         String recipient = "to someone";
 
-        Response response = messageCrud.createNew(subject, body, sender, recipient);
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSubject(subject);
+        messageDto.setBody(body);
+        messageDto.setSender(sender);
+        messageDto.setRecipient(recipient);
+
+        Response response = messageCrud.createNew(messageDto);
 
         Assert.assertTrue(response.isSuccess());
         Assert.assertThat(response.getMessage(), any(String.class));
@@ -50,7 +56,14 @@ public class MessageCrudTest {
                         .withRecipient(recipient)
                         .build());
 
-        Response response = messageCrud.createNew(subject, body, sender, recipient);
+
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSubject(subject);
+        messageDto.setBody(body);
+        messageDto.setSender(sender);
+        messageDto.setRecipient(recipient);
+
+        Response response = messageCrud.createNew(messageDto);
 
         Assert.assertFalse(response.isSuccess());
     }

@@ -11,13 +11,13 @@ public class MessageCrud {
         this.messageRepository = messageRepository;
     }
 
-    public Response createNew(String subject, String body, String sender, String recipient) {
+    public Response createNew(MessageDto messageDto) {
 
         Message message = new Message.MessageBuilder()
-                .withSubject(subject)
-                .withBody(body)
-                .withSender(sender)
-                .withRecipient(recipient)
+                .withSubject(messageDto.getSubject())
+                .withBody(messageDto.getBody())
+                .withSender(messageDto.getSender())
+                .withRecipient(messageDto.getRecipient())
                 .build();
 
         if (!messageRepository.exists(message)){
