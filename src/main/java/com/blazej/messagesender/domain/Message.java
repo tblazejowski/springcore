@@ -2,12 +2,11 @@ package com.blazej.messagesender.domain;
 
 public class Message {
 
-    public static final String NO_VALUE = "";
-    private String subject = NO_VALUE;
-    private String body = NO_VALUE;
-    private String sender = NO_VALUE;
-    private String recipient = NO_VALUE;
-    private String id = NO_VALUE;
+    private String subject;
+    private String body;
+    private String sender;
+    private String recipient;
+    private String id;
 
     public void setId(String id) {
         this.id = id;
@@ -59,13 +58,12 @@ public class Message {
 
     static class MessageBuilder {
 
-        private static final String NO_ID = NO_VALUE;
 
         private String subject;
         private String body;
         private String sender;
         private String recipient;
-        public String id = NO_ID;
+        public String id;
 
         MessageBuilder withSubject(String subject) {
             this.subject = subject;

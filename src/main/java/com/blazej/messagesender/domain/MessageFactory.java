@@ -4,13 +4,16 @@ import com.blazej.messagesender.service.MessageDto;
 
 public class MessageFactory {
 
+    public static final String NO_ID = "";
+
+    public Message createFrom (MessageDto messageDto) {
+        return createFrom(messageDto, NO_ID);
+    }
+
     public Message createFrom (MessageDto messageDto, String id) {
         return aMessageBuilder(messageDto).withId(id).build();
     }
 
-    public Message createFrom (MessageDto messageDto) {
-        return aMessageBuilder(messageDto).build();
-    }
 
     private Message.MessageBuilder aMessageBuilder(MessageDto messageDto) {
 
