@@ -2,10 +2,12 @@ package com.blazej.messagesender.service;
 
 public class MessageDto {
 
-    private String subject;
-    private String body;
-    private String sender;
-    private String recipient;
+    public static final String NO_VALUE = "";
+
+    private String subject = NO_VALUE;
+    private String body = NO_VALUE;
+    private String sender = NO_VALUE;
+    private String recipient = NO_VALUE;
 
     public String getSubject() {
         return subject;

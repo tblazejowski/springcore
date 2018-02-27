@@ -72,4 +72,12 @@ public class InMemoryMessageRepositoryTest {
 
         assertFalse(repository.exists(message));
     }
+
+    @Test
+    public void shouldConfirmThatFourthMessageExists(){
+
+        Message message = new Message("long subject", "short body");
+
+        assertTrue(repository.exists(message));
+    }
 }

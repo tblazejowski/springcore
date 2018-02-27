@@ -70,7 +70,7 @@ public class Message {
         return this.id == id;
     }
 
-    public static class MessageBuilder {
+    static class MessageBuilder {
 
         private static final String NO_ID = NO_VALUE;
 
@@ -80,32 +80,32 @@ public class Message {
         private String recipient;
         public String id = NO_ID;
 
-        public MessageBuilder withSubject(String subject) {
+        MessageBuilder withSubject(String subject) {
             this.subject = subject;
             return this;
         }
 
-        public MessageBuilder withBody(String body) {
+        MessageBuilder withBody(String body) {
             this.body = body;
             return this;
         }
 
-        public MessageBuilder withSender(String sender) {
+        MessageBuilder withSender(String sender) {
             this.sender = sender;
             return this;
         }
 
-        public MessageBuilder withRecipient(String recipient) {
+        MessageBuilder withRecipient(String recipient) {
             this.recipient = recipient;
             return this;
         }
 
-        public MessageBuilder withId(String id) {
+        MessageBuilder withId(String id) {
             this.id = id;
             return this;
         }
 
-        public Message build() {
+        Message build() {
             return new Message(this);
         }
     }

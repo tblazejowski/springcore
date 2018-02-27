@@ -3,35 +3,47 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <bean
-            id="message1"
-            class="com.blazej.messagesender.domain.Message">
-        <constructor-arg name="subject" value="some subject"/>
-        <constructor-arg name="body" value="some body"/>
-    </bean>
-    <bean
-            id="message2"
-            class="com.blazej.messagesender.domain.Message">
-        <constructor-arg name="subject" value="hot topic"/>
-        <constructor-arg name="body" value="nice body"/>
-        <property name="id" value="123"/>
-    </bean>
-    <bean
-            id="message3"
-            class="com.blazej.messagesender.domain.Message">
-        <constructor-arg name="subject" value="some subject"/>
-        <constructor-arg name="body" value="some body"/>
-        <property name="id" value="890"/>
-        <property name="sender" value="one who sends"/>
-        <property name="recipient" value="one who receives"/>
-    </bean>
+    <bean id="messageFactory" class="com.blazej.messagesender.domain.MessageFactory"/>
     <bean id="messageRepository"
           class="com.blazej.messagesender.repository.inmemory.InMemoryMessageRepository">
         <constructor-arg>
             <list>
-                <ref bean="message1"/>
-                <ref bean="message2"/>
-                <ref bean="message3"/>
+                <bean factory-bean="messageFactory" factory-method="createFrom">
+                    <constructor-arg>
+                        <bean class="com.blazej.messagesender.service.MessageDto">
+                            <property name="subject" value="some subject"/>
+                            <property name="body" value="some body"/>
+                        </bean>
+                    </constructor-arg>
+                </bean>
+                <bean factory-bean="messageFactory" factory-method="createFrom">
+                    <constructor-arg>
+                        <bean class="com.blazej.messagesender.service.MessageDto">
+                            <property name="subject" value="hot topic"/>
+                            <property name="body" value="nice body"/>
+                        </bean>
+                    </constructor-arg>
+                    <constructor-arg name="id" value="123"/>
+                </bean>
+                <bean factory-bean="messageFactory" factory-method="createFrom">
+                    <constructor-arg>
+                        <bean class="com.blazej.messagesender.service.MessageDto">
+                            <property name="subject" value="some subject"/>
+                            <property name="body" value="some body"/>
+                            <property name="sender" value="one who sends"/>
+                            <property name="recipient" value="one who receives"/>
+                        </bean>
+                    </constructor-arg>
+                    <constructor-arg name="id" value="890"/>
+                </bean>
+                <bean factory-bean="messageFactory" factory-method="createFrom">
+                    <constructor-arg>
+                        <bean class="com.blazej.messagesender.service.MessageDto">
+                            <property name="subject" value="long subject"/>
+                            <property name="body" value="short body"/>
+                        </bean>
+                    </constructor-arg>
+                </bean>
             </list>
         </constructor-arg>
     </bean>
