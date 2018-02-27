@@ -1,6 +1,8 @@
 package com.blazej.messagesender.repository.inmemory;
 
 import com.blazej.messagesender.domain.Message;
+import com.blazej.messagesender.domain.MessageFactory;
+import com.blazej.messagesender.service.MessageDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,69 +17,79 @@ public class InMemoryMessageRepositoryTest {
 
     @Autowired
     private InMemoryMessageRepository repository;
+    private MessageFactory messageFactory = new MessageFactory();
 
     @Test
     public void shouldConfirmThatFirstMessageExists(){
 
-        Message message = new Message("some subject", "some body");
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSubject("some subject");
+        messageDto.setBody("some body");
 
-        assertTrue(repository.exists(message));
+        assertTrue(repository.exists(messageFactory.createFrom(messageDto)));
     }
 
     @Test
     public void shouldConfirmThatMessageSimilarToFirstDoesExist(){
 
-        Message message = new Message("some subject", "some body");
-        message.setId("some id");
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSubject("some subject");
+        messageDto.setBody("some body");
 
-        assertFalse(repository.exists(message));
+        assertFalse(repository.exists(messageFactory.createFrom(messageDto, "some id")));
     }
 
     @Test
     public void shouldConfirmThatSecondMessageExists(){
 
-        Message message = new Message("hot topic", "nice body");
-        message.setId("123");
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSubject("hot topic");
+        messageDto.setBody("nice body");
 
-        assertTrue(repository.exists(message));
+        assertTrue(repository.exists(messageFactory.createFrom(messageDto, "123")));
     }
 
     @Test
     public void shouldConfirmThatMessageSimilarToSecondDoesExist(){
 
-        Message message = new Message("hot topic", "nice body");
-        message.setId("1234");
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSubject("hot topic");
+        messageDto.setBody("nice body");
 
-        assertFalse(repository.exists(message));
+        assertFalse(repository.exists(messageFactory.createFrom(messageDto, "1234")));
     }
 
     @Test
     public void shouldConfirmThatThirdMessageExists(){
 
-        Message message = new Message("some subject", "some body");
-        message.setSender("one who sends");
-        message.setRecipient("one who receives");
-        message.setId("890");
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSubject("some subject");
+        messageDto.setBody("some body");
+        messageDto.setSender("one who sends");
+        messageDto.setRecipient("one who receives");
 
-        assertTrue(repository.exists(message));
+        assertTrue(repository.exists(messageFactory.createFrom(messageDto, "890")));
     }
 
     @Test
     public void shouldConfirmThatMessageSimilarToThirdDoesExist(){
 
-        Message message = new Message("some subject", "some body");
-        message.setSender("one who sends");
-        message.setRecipient("one who sends");
-        message.setId("890");
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSubject("some subject");
+        messageDto.setBody("some body");
+        messageDto.setSender("one who receives");
+        messageDto.setRecipient("one who sends");
 
-        assertFalse(repository.exists(message));
+        assertFalse(repository.exists(messageFactory.createFrom(messageDto, "890")));
     }
 
     @Test
     public void shouldConfirmThatFourthMessageExists(){
 
-        Message message = new Message("long subject", "short body");
+        MessageDto messageDto = new MessageDto();
+        messageDto.setSubject("long subject");
+        messageDto.setBody("short body");
 
-        assertTrue(repository.exists(message));
+        assertTrue(repository.exists(messageFactory.createFrom(messageDto)));
     }
 }
