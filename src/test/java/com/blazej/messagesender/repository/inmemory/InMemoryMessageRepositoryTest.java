@@ -12,7 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/repositories.xml")
+@ContextConfiguration(locations = {"/repositories.xml", "/fake-messages.xml"})
+
 public class InMemoryMessageRepositoryTest {
 
     public static final String SOME_SUBJECT = "some subject";
@@ -67,8 +68,8 @@ public class InMemoryMessageRepositoryTest {
         MessageDto messageDto = new MessageDto();
         messageDto.setSubject(SOME_SUBJECT);
         messageDto.setBody(SOME_BODY);
-        messageDto.setSender("one who sends");
-        messageDto.setRecipient("one who receives");
+        messageDto.setSender("sender@gmail.com");
+        messageDto.setRecipient("recipient@gmail.com");
 
         assertTrue(repository.exists(messageFactory.createFrom(messageDto, "890")));
     }
@@ -79,8 +80,8 @@ public class InMemoryMessageRepositoryTest {
         MessageDto messageDto = new MessageDto();
         messageDto.setSubject(SOME_SUBJECT);
         messageDto.setBody(SOME_BODY);
-        messageDto.setSender("one who receives");
-        messageDto.setRecipient("one who sends");
+        messageDto.setSender("recipient@gmail.com");
+        messageDto.setRecipient("sender@gmail.com");
 
         assertFalse(repository.exists(messageFactory.createFrom(messageDto, "890")));
     }
