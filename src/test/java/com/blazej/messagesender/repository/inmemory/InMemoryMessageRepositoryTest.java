@@ -15,6 +15,8 @@ import static org.junit.Assert.*;
 @ContextConfiguration("/repositories.xml")
 public class InMemoryMessageRepositoryTest {
 
+    public static final String SOME_SUBJECT = "some subject";
+    public static final String SOME_BODY = "some body";
     @Autowired
     private InMemoryMessageRepository repository;
     private MessageFactory messageFactory = new MessageFactory();
@@ -23,8 +25,8 @@ public class InMemoryMessageRepositoryTest {
     public void shouldConfirmThatFirstMessageExists(){
 
         MessageDto messageDto = new MessageDto();
-        messageDto.setSubject("some subject");
-        messageDto.setBody("some body");
+        messageDto.setSubject(SOME_SUBJECT);
+        messageDto.setBody(SOME_BODY);
 
         assertTrue(repository.exists(messageFactory.createFrom(messageDto)));
     }
@@ -33,8 +35,8 @@ public class InMemoryMessageRepositoryTest {
     public void shouldConfirmThatMessageSimilarToFirstDoesExist(){
 
         MessageDto messageDto = new MessageDto();
-        messageDto.setSubject("some subject");
-        messageDto.setBody("some body");
+        messageDto.setSubject(SOME_SUBJECT);
+        messageDto.setBody(SOME_BODY);
 
         assertFalse(repository.exists(messageFactory.createFrom(messageDto, "some id")));
     }
@@ -43,8 +45,8 @@ public class InMemoryMessageRepositoryTest {
     public void shouldConfirmThatSecondMessageExists(){
 
         MessageDto messageDto = new MessageDto();
-        messageDto.setSubject("hot topic");
-        messageDto.setBody("nice body");
+        messageDto.setSubject(SOME_SUBJECT);
+        messageDto.setBody(SOME_BODY);
 
         assertTrue(repository.exists(messageFactory.createFrom(messageDto, "123")));
     }
@@ -53,8 +55,8 @@ public class InMemoryMessageRepositoryTest {
     public void shouldConfirmThatMessageSimilarToSecondDoesExist(){
 
         MessageDto messageDto = new MessageDto();
-        messageDto.setSubject("hot topic");
-        messageDto.setBody("nice body");
+        messageDto.setSubject(SOME_SUBJECT);
+        messageDto.setBody(SOME_BODY);
 
         assertFalse(repository.exists(messageFactory.createFrom(messageDto, "1234")));
     }
@@ -63,8 +65,8 @@ public class InMemoryMessageRepositoryTest {
     public void shouldConfirmThatThirdMessageExists(){
 
         MessageDto messageDto = new MessageDto();
-        messageDto.setSubject("some subject");
-        messageDto.setBody("some body");
+        messageDto.setSubject(SOME_SUBJECT);
+        messageDto.setBody(SOME_BODY);
         messageDto.setSender("one who sends");
         messageDto.setRecipient("one who receives");
 
@@ -75,8 +77,8 @@ public class InMemoryMessageRepositoryTest {
     public void shouldConfirmThatMessageSimilarToThirdDoesExist(){
 
         MessageDto messageDto = new MessageDto();
-        messageDto.setSubject("some subject");
-        messageDto.setBody("some body");
+        messageDto.setSubject(SOME_SUBJECT);
+        messageDto.setBody(SOME_BODY);
         messageDto.setSender("one who receives");
         messageDto.setRecipient("one who sends");
 
@@ -87,8 +89,8 @@ public class InMemoryMessageRepositoryTest {
     public void shouldConfirmThatFourthMessageExists(){
 
         MessageDto messageDto = new MessageDto();
-        messageDto.setSubject("long subject");
-        messageDto.setBody("short body");
+        messageDto.setSubject("hot topic");
+        messageDto.setBody("nice body");
 
         assertTrue(repository.exists(messageFactory.createFrom(messageDto)));
     }
