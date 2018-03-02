@@ -1,44 +1,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-    <bean id="messageFactory" class="com.blazej.messagesender.domain.MessageFactory"/>
+    <util:list id="messages"></util:list>
 
-    <bean id="templateMessage" class="com.blazej.messagesender.service.MessageDto">
-        <property name="subject" value="some subject"/>
-        <property name="body" value="some body"/>
+    <bean id="messagesRepository" class="com.blazej.messagesender.repository.inmemory.InMemoryMessageRepository">
+        <constructor-arg ref="messages"/>
     </bean>
 
-    <bean id="messageWithParent" class="com.blazej.messagesender.service.MessageDto" parent="templateMessage">
-        <property name="sender" value="one who sends"/>
-        <property name="recipient" value="one who receives"/>
-    </bean>
-
-    <bean id="messageRepository"
-          class="com.blazej.messagesender.repository.inmemory.InMemoryMessageRepository">
-        <constructor-arg>
-            <list>
-                <bean factory-bean="messageFactory" factory-method="createFrom">
-                    <constructor-arg ref="templateMessage"/>
-                </bean>
-                <bean factory-bean="messageFactory" factory-method="createFrom">
-                    <constructor-arg ref="templateMessage"/>
-                    <constructor-arg name="id" value="123"/>
-                </bean>
-                <bean factory-bean="messageFactory" factory-method="createFrom">
-                    <constructor-arg ref="messageWithParent"/>
-                    <constructor-arg name="id" value="890"/>
-                </bean>
-                <bean factory-bean="messageFactory" factory-method="createFrom">
-                    <constructor-arg>
-                        <bean class="com.blazej.messagesender.service.MessageDto">
-                            <property name="subject" value="hot topic"/>
-                            <property name="body" value="nice body"/>
-                        </bean>
-                    </constructor-arg>
-                </bean>
-            </list>
-        </constructor-arg>
-    </bean>
 </beans>

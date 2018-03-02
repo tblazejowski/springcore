@@ -8,14 +8,10 @@ import java.util.List;
 
 public class InMemoryMessageRepository implements MessageRepository {
 
-    private final List<Message> messages;
+    private List<Message> messages;
 
     public InMemoryMessageRepository(List<Message> messages) {
         this.messages = messages;
-    }
-
-    public InMemoryMessageRepository() {
-        this(new ArrayList<>());
     }
 
     public boolean exists(String id) {
