@@ -18,6 +18,7 @@ public class InMemoryMessageRepositoryTest {
 
     public static final String SOME_SUBJECT = "some subject";
     public static final String SOME_BODY = "some body";
+
     @Autowired
     private InMemoryMessageRepository repository;
     private MessageFactory messageFactory = new MessageFactory();
@@ -80,8 +81,8 @@ public class InMemoryMessageRepositoryTest {
         MessageDto messageDto = new MessageDto();
         messageDto.setSubject(SOME_SUBJECT);
         messageDto.setBody(SOME_BODY);
-        messageDto.setSender("recipient@gmail.com");
-        messageDto.setRecipient("sender@gmail.com");
+        messageDto.setSender("sender@gmail.com");
+        messageDto.setRecipient("recipient@yahoo.com");
 
         assertFalse(repository.exists(messageFactory.createFrom(messageDto, "890")));
     }

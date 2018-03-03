@@ -7,9 +7,10 @@
        http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
     <util:list id="messages"></util:list>
-
-    <bean id="messagesRepository" class="com.blazej.messagesender.repository.inmemory.InMemoryMessageRepository">
-        <constructor-arg ref="messages"/>
-    </bean>
+        <bean
+                id="messageRepository"
+                class="com.blazej.messagesender.repository.inmemory.InMemoryMessageRepository">
+            <constructor-arg ref="messages"/>
+        </bean>
 
 </beans>

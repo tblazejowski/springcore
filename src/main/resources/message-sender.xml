@@ -8,7 +8,5 @@
 
     <import resource="repositories.xml"/>
 
-    <bean class="com.blazej.messagesender.service.MessageCrud">
-        <constructor-arg ref="messageRepository"/>
-    </bean>
+    <context:component-scan base-package="com.blazej.messagesender.service"/>
 </beans>
