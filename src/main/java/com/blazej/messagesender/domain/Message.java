@@ -33,7 +33,7 @@ public class Message {
         if (!body.equals(message.body)) return false;
         if (!sender.equals(message.sender)) return false;
         if (!recipient.equals(message.recipient)) return false;
-        return id.equals(message.id);
+        return (id.equals(message.id) || (id == ""));
     }
 
     public String getSubject() {
